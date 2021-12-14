@@ -1,0 +1,17 @@
+idea 1:
+trafikinformation från vald region
+
+idea 2:
+random podcast and documentary generator
+
+1. fetch data from api 
+2. convert response to json
+
+loop through programmes 
+show a random one, using math.random to generate program id
+insert it to a div
+
+
+btn is clicked
+random id is generated with math random
+then 
