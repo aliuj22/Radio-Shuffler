@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+@import 'variables.scss'
+
+//-------------------GENERAL STYLES---------------------//
 
 body {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  margin: 50px;
+  font-family: $base-font;
+  font-weight: $font-normal;
+  margin: 40px;
   background: #12c2e9; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
@@ -27,23 +30,23 @@ main {
   text-align: center;
 }
 
+
+
+
+h1 {
+  padding-bottom: 1.2rem;
+}
+
 #btn-container {
   width: 100%;
   display: flex;
   justify-content: space-around;
+  margin-bottom: 1.3rem;
 }
 
 button {
-  //   padding: 1.5rem;
-  //   border-radius: 1.5rem;
-  //   background-color: rgb(73, 73, 226);
-  //   color: white;
-  //   font-size: 1.5rem;
-  //   margin-top: 1.5rem;
-  //   text-transform: uppercase;
-
   font-size: 20px;
-  font-weight: 300;
+  font-weight: $font-light;
   letter-spacing: 1px;
   padding: 13px 50px 13px;
   outline: 0;
@@ -83,9 +86,33 @@ button {
 #info-div,
 #image-div {
   width: 50%;
+  height: 75vh;
+}
+
+
+#info-div {
+  padding: 0 10%;
+
+  p,
+  a {
+    font-size: 1.8rem;
+    font-weight: $font-light;
+  }
+
+  h2 {
+    font-size: 2.4rem;
+  }
+}
+
+#p {
+  padding-bottom: 3%;
 }
 
 img {
   width: 100%;
   height: 100%;
 }
+
+
+//---------------------MEDIA QUERIES-----------------//
+@media

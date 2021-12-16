@@ -2,7 +2,7 @@
 body {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
-  margin: 50px;
+  margin: 40px;
   background: #12c2e9;
   /* fallback for old browsers */
   /* Chrome 10-25, Safari 5.1-6 */
@@ -26,6 +26,10 @@ main {
   text-align: center;
 }
 
+h1 {
+  padding-bottom: 1.2rem;
+}
+
 #btn-container {
   width: 100%;
   display: -webkit-box;
@@ -33,6 +37,7 @@ main {
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+  margin-bottom: 1.3rem;
 }
 
 button {
@@ -84,6 +89,25 @@ button:hover::after {
 #info-div,
 #image-div {
   width: 50%;
+  height: 75vh;
+}
+
+#info-div {
+  padding: 0 10%;
+}
+
+#info-div p,
+#info-div a {
+  font-size: 1.8rem;
+  font-weight: 300;
+}
+
+#info-div h2 {
+  font-size: 2.4rem;
+}
+
+#p {
+  padding-bottom: 3%;
 }
 
 img {

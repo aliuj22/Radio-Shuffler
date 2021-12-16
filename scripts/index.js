@@ -43,6 +43,18 @@ createButton('btn-music', btnContainer, 'Some Music');
 let btnMusic = document.getElementById('btn-music');
 
 //-----------fetching info from SR api---------------
+let listOfMusicPrograms;
+fetch(
+  'https://api.sr.se/api/v2/programs/index?pagination=false&format=json&programcategoryid=5'
+)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (respData) {
+    listOfMusicPrograms = respData;
+    console.log('music list', listOfMusicPrograms);
+    // console.log(respData.programs[0].description);
+  });
 let listOfPrograms;
 
 fetch(
@@ -57,18 +69,6 @@ fetch(
     // console.log(respData.programs[0].description);
   });
 
-let listOfMusicPrograms;
-fetch(
-  'https://api.sr.se/api/v2/programs/index?pagination=false&format=json&programcategoryid=5'
-)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (respData) {
-    listOfMusicPrograms = respData;
-    console.log('music list', listOfMusicPrograms);
-    // console.log(respData.programs[0].description);
-  });
 //---------------------------------------------------
 
 //creating container where program info will be stored
@@ -89,10 +89,17 @@ infoDiv.appendChild(h2);
 
 let p = document.createElement('p');
 infoDiv.appendChild(p);
+p.id = 'p';
 
 //adding listener for click on the button
-btnDoc.addEventListener('click', getDocumentary);
-btnMusic.addEventListener('click', getDocumentary);
+btnDoc.addEventListener('click', () => {
+  console.log('clicked doc');
+  getRandomId(listOfPrograms);
+});
+btnMusic.addEventListener('click', () => {
+  console.log('clicked music');
+  getRandomId(listOfMusicPrograms);
+});
 
 let randomId;
 
@@ -100,16 +107,21 @@ let randomId;
 function getRandomId(list) {
   randomId = list.programs[[Math.floor(Math.random() * list.programs.length)]];
   console.log(randomId);
+  getDocumentary();
 }
 
+function removeEventList(element, functionName) {
+  element.removeEventListener('click', functionName);
+}
+
+let img = document.createElement('img');
+let anchor = document.createElement('a');
+let p2 = document.createElement('p');
+p2.id = 'p2';
+
 function getDocumentary() {
-  if (btnDoc.clicked === true) {
-    getRandomId(listOfPrograms);
-  } else {
-    getRandomId(listOfMusicPrograms);
-  }
-  btnDoc.removeEventListener('click', getDocumentary);
-  btnMusic.removeEventListener('click', getDocumentary);
+  removeEventList(btnDoc, getDocumentary);
+  removeEventList(btnMusic, getDocumentary);
 
   let name = randomId.name;
   h2.textContent = name;
@@ -117,18 +129,22 @@ function getDocumentary() {
   let description = randomId.description;
   p.textContent = description;
 
-  let img = document.createElement('img');
   imageDiv.appendChild(img);
   let image = randomId.socialimage;
   img.src = image;
 
-  let anchor = document.createElement('a');
   infoDiv.appendChild(anchor);
   let link = randomId.programurl;
   anchor.setAttribute('href', link);
-  anchor.textContent = 'You can listen to it here';
+  anchor.id = 'link';
+  anchor.textContent = 'Lyssna Här';
 
-  let picture = randomId.programimage;
-  console.log(picture);
-  div.style.border = '1px solid black';
+  infoDiv.appendChild(p2);
+  let broadcastInfo = randomId.broadcastinfo;
+  if (broadcastInfo) {
+    console.log('exists');
+    p2.innerHTML = `<strong>Otherwise broadcasted on: </strong>${broadcastInfo}`; /* innerHtml to be able to add a tag inside the string */
+  } else if (broadcastInfo === 'Sidan uppdateras inte. ') {
+    console.log('doesnt exist');
+  }
 }
