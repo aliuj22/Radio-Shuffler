@@ -2,9 +2,36 @@ let bodyMain = document.querySelector('body');
 let main = document.createElement('main');
 bodyMain.append(main);
 
+//-----------fetching info from SR api---------------
+let listOfMusicPrograms;
+fetch(
+  'https://api.sr.se/api/v2/programs/index?pagination=false&format=json&programcategoryid=5'
+)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (respData) {
+    listOfMusicPrograms = respData;
+    console.log('music list', listOfMusicPrograms);
+  });
+
+let listOfPrograms;
+fetch(
+  'https://api.sr.se/api/v2/programs/index?pagination=false&format=json&programcategoryid=82'
+)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (respData) {
+    listOfPrograms = respData;
+    console.log('list', listOfPrograms);
+  });
+
+//---------------------------------------------------
+
 //main header
 let header = document.createElement('h1');
-header.setAttribute('id', 'header');
+header.id = 'header';
 let text = document.createTextNode(
   /*'Bored? Click one of the buttons and get a suggestion what you can listen to!'*/ ' Uttråkad? Klicka på en av knapparna och få ett förslag på vad du kan lyssna på!'
 );
@@ -42,33 +69,6 @@ let btnDoc = document.getElementById('btn-documentary');
 createButton('btn-music', btnContainer, 'Lite Musik');
 let btnMusic = document.getElementById('btn-music');
 
-//-----------fetching info from SR api---------------
-let listOfMusicPrograms;
-fetch(
-  'https://api.sr.se/api/v2/programs/index?pagination=false&format=json&programcategoryid=5'
-)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (respData) {
-    listOfMusicPrograms = respData;
-    console.log('music list', listOfMusicPrograms);
-  });
-
-let listOfPrograms;
-fetch(
-  'https://api.sr.se/api/v2/programs/index?pagination=false&format=json&programcategoryid=82'
-)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (respData) {
-    listOfPrograms = respData;
-    console.log('list', listOfPrograms);
-  });
-
-//---------------------------------------------------
-
 //creating container where program info will be stored
 createDiv('program-div', 'div', main);
 let div = document.getElementById('program-div');
@@ -83,7 +83,7 @@ let infoDiv = document.getElementById('info-div');
 
 //program title
 let h2 = document.createElement('h2');
-h2.setAttribute('id', 'program-title');
+h2.id = 'program-title';
 infoDiv.appendChild(h2);
 
 //description
@@ -124,7 +124,7 @@ function getDocumentary() {
   removeEventList(btnMusic, getDocumentary);
 
   let name = randomId.name;
-  h2.textContent = name;
+  h2.innerHTML = `${name} <br> <hr>`;
 
   let description = randomId.description;
   p.textContent = description;
@@ -135,7 +135,7 @@ function getDocumentary() {
 
   infoDiv.appendChild(anchor);
   let link = randomId.programurl;
-  anchor.setAttribute('href', link);
+  anchor.href = link;
   anchor.id = 'link';
   anchor.textContent = 'Lyssna Här';
 
@@ -146,6 +146,6 @@ function getDocumentary() {
     p2.innerHTML = '';
   } else if (broadcastInfo) {
     console.log('exists');
-    p2.innerHTML = `<strong>Annars sänds på: </strong> <br> ${broadcastInfo}`; /* innerHtml to be able to add a tag inside the string */
+    p2.innerHTML = `<strong>Sänds annars på: </strong> <br> ${broadcastInfo}`; /* innerHtml to be able to add a tag inside the string */
   }
 }
