@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
-@import 'variables.scss'
+@import 'variables.scss';
 
 //-------------------GENERAL STYLES---------------------//
 
@@ -29,9 +29,6 @@ main {
   line-height: 3rem;
   text-align: center;
 }
-
-
-
 
 h1 {
   padding-bottom: 1.2rem;
@@ -89,7 +86,6 @@ button {
   height: 75vh;
 }
 
-
 #info-div {
   padding: 0 10%;
 
@@ -113,6 +109,16 @@ img {
   height: 100%;
 }
 
-
 //---------------------MEDIA QUERIES-----------------//
-@media
+
+@media screen and (max-width: $mq-tablet) {
+  #program-div {
+    flex-direction: column;
+    justify-content: center;
+  }
+  #info-div,
+  #image-div {
+    width: 100%;
+    padding: 0;
+  }
+}
