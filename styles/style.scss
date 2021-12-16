@@ -6,7 +6,7 @@
 body {
   font-family: $base-font;
   font-weight: $font-normal;
-  margin: 40px;
+  margin: 4% 4%;
   background: #12c2e9; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
@@ -32,6 +32,8 @@ main {
 
 h1 {
   padding-bottom: 1.2rem;
+  margin-top: 0;
+  font-size: 2.5rem;
 }
 
 #btn-container {
@@ -76,8 +78,6 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
-  line-height: 2rem;
 }
 
 #info-div,
@@ -96,7 +96,8 @@ button {
   }
 
   h2 {
-    font-size: 2.4rem;
+    font-size: 2.2rem;
+    text-shadow: 1px 2px 3px rgb(63, 62, 62);
   }
 }
 

@@ -2,11 +2,38 @@ let bodyMain = document.querySelector('body');
 let main = document.createElement('main');
 bodyMain.append(main);
 
+//-----------fetching info from SR api---------------
+let listOfMusicPrograms;
+fetch(
+  'https://api.sr.se/api/v2/programs/index?pagination=false&format=json&programcategoryid=5'
+)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (respData) {
+    listOfMusicPrograms = respData;
+    console.log('music list', listOfMusicPrograms);
+  });
+
+let listOfPrograms;
+fetch(
+  'https://api.sr.se/api/v2/programs/index?pagination=false&format=json&programcategoryid=82'
+)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (respData) {
+    listOfPrograms = respData;
+    console.log('list', listOfPrograms);
+  });
+
+//---------------------------------------------------
+
 //main header
 let header = document.createElement('h1');
-header.setAttribute('id', 'header');
+header.id = 'header';
 let text = document.createTextNode(
-  'Bored? Click one of the buttons and get a suggestion what you can listen to!'
+  /*'Bored? Click one of the buttons and get a suggestion what you can listen to!'*/ ' Uttråkad? Klicka på en av knapparna och få ett förslag på vad du kan lyssna på!'
 );
 header.appendChild(text);
 
@@ -36,40 +63,11 @@ createDiv('btn-container', '', main);
 let btnContainer = document.getElementById('btn-container');
 main.appendChild(btnContainer);
 
-createButton('btn-documentary', btnContainer, 'A Documentary');
+createButton('btn-documentary', btnContainer, 'En Dokumentär');
 let btnDoc = document.getElementById('btn-documentary');
 
-createButton('btn-music', btnContainer, 'Some Music');
+createButton('btn-music', btnContainer, 'Lite Musik');
 let btnMusic = document.getElementById('btn-music');
-
-//-----------fetching info from SR api---------------
-let listOfMusicPrograms;
-fetch(
-  'https://api.sr.se/api/v2/programs/index?pagination=false&format=json&programcategoryid=5'
-)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (respData) {
-    listOfMusicPrograms = respData;
-    console.log('music list', listOfMusicPrograms);
-    // console.log(respData.programs[0].description);
-  });
-let listOfPrograms;
-
-fetch(
-  'https://api.sr.se/api/v2/programs/index?pagination=false&format=json&programcategoryid=82'
-)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (respData) {
-    listOfPrograms = respData;
-    console.log('list', listOfPrograms);
-    // console.log(respData.programs[0].description);
-  });
-
-//---------------------------------------------------
 
 //creating container where program info will be stored
 createDiv('program-div', 'div', main);
@@ -83,10 +81,12 @@ let imageDiv = document.getElementById('image-div');
 createDiv('info-div', '', div);
 let infoDiv = document.getElementById('info-div');
 
+//program title
 let h2 = document.createElement('h2');
-h2.setAttribute('id', 'program-title');
+h2.id = 'program-title';
 infoDiv.appendChild(h2);
 
+//description
 let p = document.createElement('p');
 infoDiv.appendChild(p);
 p.id = 'p';
@@ -102,7 +102,6 @@ btnMusic.addEventListener('click', () => {
 });
 
 let randomId;
-
 //get a random documentary array
 function getRandomId(list) {
   randomId = list.programs[[Math.floor(Math.random() * list.programs.length)]];
@@ -114,6 +113,7 @@ function removeEventList(element, functionName) {
   element.removeEventListener('click', functionName);
 }
 
+//creating tags that will later be filled with information
 let img = document.createElement('img');
 let anchor = document.createElement('a');
 let p2 = document.createElement('p');
@@ -124,7 +124,7 @@ function getDocumentary() {
   removeEventList(btnMusic, getDocumentary);
 
   let name = randomId.name;
-  h2.textContent = name;
+  h2.innerHTML = `${name} <br> <hr>`;
 
   let description = randomId.description;
   p.textContent = description;
@@ -135,16 +135,17 @@ function getDocumentary() {
 
   infoDiv.appendChild(anchor);
   let link = randomId.programurl;
-  anchor.setAttribute('href', link);
+  anchor.href = link;
   anchor.id = 'link';
   anchor.textContent = 'Lyssna Här';
 
   infoDiv.appendChild(p2);
   let broadcastInfo = randomId.broadcastinfo;
-  if (broadcastInfo) {
-    console.log('exists');
-    p2.innerHTML = `<strong>Otherwise broadcasted on: </strong>${broadcastInfo}`; /* innerHtml to be able to add a tag inside the string */
-  } else if (broadcastInfo === 'Sidan uppdateras inte. ') {
+  if (broadcastInfo === 'Sidan uppdateras inte. ') {
     console.log('doesnt exist');
+    p2.innerHTML = '';
+  } else if (broadcastInfo) {
+    console.log('exists');
+    p2.innerHTML = `<strong>Sänds annars på: </strong> <br> ${broadcastInfo}`; /* innerHtml to be able to add a tag inside the string */
   }
 }
