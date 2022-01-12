@@ -3,17 +3,30 @@ let main = document.createElement('main');
 bodyMain.append(main);
 
 //-----------fetching info from SR api---------------
+// let listOfMusicPrograms;
+// fetch(
+//   'https://api.sr.se/api/v2/programs/index?pagination=false&format=json&programcategoryid=5'
+// )
+//   .then(function (response) {
+//     return response.json();
+//   })
+//   .then(function (respData) {
+//     listOfMusicPrograms = respData;
+//     // console.log('music list', listOfMusicPrograms);
+//   });
 let listOfMusicPrograms;
-fetch(
-  'https://api.sr.se/api/v2/programs/index?pagination=false&format=json&programcategoryid=5'
-)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (respData) {
-    listOfMusicPrograms = respData;
-    console.log('music list', listOfMusicPrograms);
-  });
+async function fetchMusic() {
+  fetch(
+    'https://api.sr.se/api/v2/programs/index?pagination=false&format=json&programcategoryid=5'
+  )
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (respData) {
+      listOfMusicPrograms = respData;
+      console.log(listOfMusicPrograms);
+    });
+}
 
 let listOfPrograms;
 fetch(
@@ -33,7 +46,8 @@ fetch(
 let header = document.createElement('h1');
 header.id = 'header';
 let text = document.createTextNode(
-  /*'Bored? Click one of the buttons and get a suggestion what you can listen to!'*/ ' Uttråkad? Klicka på en av knapparna och få ett förslag på vad du kan lyssna på!'
+  /*'Bored? Click one of the buttons and get a suggestion what you can listen to!'*/
+  ' Uttråkad? Klicka på en av knapparna och få ett förslag på vad du kan lyssna på!'
 );
 header.appendChild(text);
 

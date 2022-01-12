@@ -1,12 +1,17 @@
-let listOfMusicPrograms;
+export async function fetchMusic() {
+  return fetch(
+    'https://api.sr.se/api/v2/programs/index?pagination=false&format=json&programcategoryid=5'
+  )
+    .then((response) => response.json())
+    .then((respData) => respData.programs)
+    .catch((err) => console.log(err));
+}
 
-fetch(
-  'https://api.sr.se/api/v2/programs/index?pagination=false&format=json&programcategoryid=5'
-)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (respData) {
-    listOfMusicPrograms = respData;
-    console.log('music list', listOfMusicPrograms);
-  });
+export async function fetchPrograms() {
+  return fetch(
+    'https://api.sr.se/api/v2/programs/index?pagination=false&format=json&programcategoryid=82'
+  )
+    .then((response) => response.json())
+    .then((respData) => respData.programs)
+    .catch((err) => console.log(err));
+}
