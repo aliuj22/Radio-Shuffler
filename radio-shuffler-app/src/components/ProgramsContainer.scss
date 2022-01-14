@@ -1,0 +1,62 @@
+@import '../variables.scss';
+
+#program-div {
+  width: 100%;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#info-div {
+  width: 45vw;
+  height: 75vh;
+}
+
+#infoDiv {
+  padding: 0 10%;
+  width: 50%;
+  height: 75vh;
+
+  p,
+  a {
+    font-size: 1.8rem;
+    font-weight: $font-light;
+  }
+
+  h2 {
+    font-size: 2.2rem;
+    text-shadow: 1px 2px 3px rgb(63, 62, 62);
+  }
+}
+
+#p {
+  padding-bottom: 3%;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+#programs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 3rem;
+  text-align: center;
+}
+
+//---------------------MEDIA QUERIES-----------------//
+
+@media screen and (max-width: $mq-tablet) {
+  #program-div {
+    flex-direction: column;
+    justify-content: center;
+  }
+  #info-div,
+  #image-div {
+    width: 100%;
+    padding: 0;
+  }
+}
