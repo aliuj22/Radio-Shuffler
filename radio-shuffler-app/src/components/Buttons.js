@@ -29,9 +29,14 @@ const Button = ({ programList, musicList }) => {
   return (
     <>
       <div id="btn-container">
-        {/* <button id="btn-documentary" onClick={getRandomProgramId(programList)}>
+        <button
+          id="btn-documentary"
+          onClick={() => {
+            getRandomProgramId(programList);
+          }}
+        >
           En Dokumentär
-        </button> */}
+        </button>
         <button id="btn-music" onClick={() => getRandomProgramId(musicList)}>
           Lite Musik
         </button>
