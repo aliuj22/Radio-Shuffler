@@ -4,3 +4,4 @@ thumbs.db
 node_modules
 *.css.map
 .vscode/*
+/node_modules
